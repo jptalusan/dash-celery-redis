@@ -1,10 +1,7 @@
 # Setup
-1. create virtual environment
-2. activate venv
-3. `celery -A celery_app.celery_app worker --loglevel=INFO`
-* or `nohup celery -A celery_app.celery_app worker --loglevel=INFO > celery_logs.txt 2&1 &`
-4. `docker run -p 6379:6379 redis`
-5. `python celery_app.py`
+1. Install Docker.
+2. `docker build -t sample_dash .`
+3. `docker run --rm -v ABSOLUTE_PATH_TO_LOCAL_OUTPUT_FOLDER/data:/usr/src/app/logs -p 8050:8050 sample_dash`
 
 # Execute
 1. Click `Run Job!` will create a task (sleep 2), pass it to the worker.

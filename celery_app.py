@@ -10,13 +10,16 @@ from celery import Celery
 import plotly.graph_objects as go
 import plotly.express as px
 
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+
 fig = go.Figure(
     data=[go.Bar(y=[2, 1, 3])],
     layout_title_text="A Figure Displayed with fig.show()"
 )
 
 celery_app = Celery(
-    __name__, broker="redis://localhost:6379/0", backend="redis://localhost:6379/1"
+    __name__, broker=f"redis://{REDIS_HOST}:{REDIS_PORT}/0", backend=f"redis://{REDIS_HOST}:{REDIS_PORT}/1"
 )
 long_callback_manager = CeleryLongCallbackManager(celery_app)
 
@@ -100,8 +103,9 @@ def callback(n_clicks, is_open):
 )
 def callback2(n_clicks):
     df= pd.read_csv('ElectricCarData_Clean.csv')
-    a = np.arange(1,104)
-    if n_clicks % 2 == 0:
+    
+    if int(n_clicks) % 2 == 0:
+        a = np.arange(1,104)
         fig = px.bar(df, x='Brand',y=a)
     else:
         fig = go.Figure(data=[go.Table(
@@ -109,8 +113,7 @@ def callback2(n_clicks):
         cells=dict(values=[df[c] for c in df.columns])
     )])
     
-    time.sleep(2.0)
     return [f"Clicked {n_clicks} times"], fig
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', debug=True)
