@@ -1,0 +1,8 @@
+pandas
+dash==2.9.1
+dash_daq
+dash_bootstrap_components
+flask_caching
+celery
+redis
+plotly

@@ -1,0 +1,132 @@
+nohup: ignoring input
+ 
+ -------------- celery@100834-pc v5.2.7 (dawn-chorus)
+--- ***** ----- 
+-- ******* ---- Linux-5.15.90.1-microsoft-standard-WSL2-x86_64-with-glibc2.31 2023-03-23 16:12:44
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         celery_app:0x7ff4bb278a10
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     redis://localhost:6379/1
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . long_callback_2d5937d394d24fcba72bc1758ff258ea079bafb1
+  . long_callback_c937fd739cac9f51036d46f4a82d6916b7a5cb1d
+
+[2023-03-23 16:12:44,519: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2023-03-23 16:12:44,522: INFO/MainProcess] mingle: searching for neighbors
+[2023-03-23 16:12:45,535: INFO/MainProcess] mingle: all alone
+[2023-03-23 16:12:45,561: INFO/MainProcess] celery@100834-pc ready.
+[2023-03-23 16:13:05,692: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/worker/consumer/consumer.py", line 332, in start
+    blueprint.start(self)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/worker/consumer/consumer.py", line 628, in start
+    c.loop(*c.loop_args())
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/worker/loops.py", line 97, in asynloop
+    next(loop)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/kombu/asynchronous/hub.py", line 362, in create_loop
+    cb(*cbargs)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/kombu/transport/redis.py", line 1326, in on_readable
+    self.cycle.on_readable(fileno)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/kombu/transport/redis.py", line 562, in on_readable
+    chan.handlers[type]()
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/kombu/transport/redis.py", line 906, in _receive
+    ret.append(self._receive_one(c))
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/kombu/transport/redis.py", line 916, in _receive_one
+    response = c.parse_response()
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1531, in parse_response
+    response = self._execute(conn, try_read)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1507, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/retry.py", line 49, in call_with_retry
+    fail(error)
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1509, in <lambda>
+    lambda error: self._disconnect_raise_connect(conn, error),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1496, in _disconnect_raise_connect
+    raise error
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/retry.py", line 46, in call_with_retry
+    return do()
+           ^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1508, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/client.py", line 1529, in try_read
+    return conn.read_response()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/connection.py", line 865, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/connection.py", line 346, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/connection.py", line 356, in _read_response
+    raw = self._buffer.readline()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/connection.py", line 259, in readline
+    self._read_from_socket()
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/redis/connection.py", line 212, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+[2023-03-23 16:13:05,702: WARNING/MainProcess] /home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:367: CPendingDeprecationWarning:
+
+
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered back to the queue.
+You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss setting.
+In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+
+
+[2023-03-23 16:13:05,707: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Connection closed by server..
+Trying again in 2.00 seconds... (1/100)
+
+[2023-03-23 16:13:07,708: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 111 connecting to localhost:6379. Connection refused..
+Trying again in 4.00 seconds... (2/100)
+
+[2023-03-23 16:13:11,717: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2023-03-23 16:13:11,721: INFO/MainProcess] mingle: searching for neighbors
+[2023-03-23 16:13:12,730: INFO/MainProcess] mingle: all alone
+[2023-03-23 16:14:05,986: INFO/MainProcess] Task long_callback_c937fd739cac9f51036d46f4a82d6916b7a5cb1d[08650c1f-d4c6-4155-8bd5-be0d7f8b31d9] received
+[2023-03-23 16:14:08,011: INFO/ForkPoolWorker-7] Task long_callback_c937fd739cac9f51036d46f4a82d6916b7a5cb1d[08650c1f-d4c6-4155-8bd5-be0d7f8b31d9] succeeded in 2.023165897000581s: None
+[2023-03-23 16:14:11,305: INFO/MainProcess] Task long_callback_2d5937d394d24fcba72bc1758ff258ea079bafb1[5248e0ed-85a5-4024-ba17-d66e51e0c5c1] received
+[2023-03-23 16:14:11,396: INFO/MainProcess] Task long_callback_c937fd739cac9f51036d46f4a82d6916b7a5cb1d[e2cf5520-6779-449f-9365-b8c6465c88de] received
+[2023-03-23 16:14:13,406: INFO/ForkPoolWorker-8] Task long_callback_c937fd739cac9f51036d46f4a82d6916b7a5cb1d[e2cf5520-6779-449f-9365-b8c6465c88de] succeeded in 2.009125368000241s: None
+[2023-03-23 16:14:21,309: INFO/ForkPoolWorker-7] Task long_callback_2d5937d394d24fcba72bc1758ff258ea079bafb1[5248e0ed-85a5-4024-ba17-d66e51e0c5c1] succeeded in 10.002962644997751s: None
+[2023-03-23 16:21:01,069: ERROR/MainProcess] Received unregistered task of type 'long_callback_e84da478f3afb2a0c47681469dfe6a5f2939959d'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["405dcaa45b8e30014e5052a05ff4e911ffe3be06", "405dcaa45b8e30014e5052a05ff4e911ffe3be06-progress", [1], {"args_grouping": [{"id": "button_id2", "property": "n_clicks", "value": 1, "str_id": "button_id2", "triggered": true}], "using_args_grouping": false, "outputs_grouping": [{"id": "paragraph_id2", "property": "children"}, {"id": "plot", "property": "figure"}], "using_outputs_grouping": false, "inputs_list": [{"id": "button_id2", "property": "n_clicks", "value": 1}], "states_list": [], "outputs_list": [{"id": "paragraph_id2", "property": "children"}, {"id": "plot", "property": "figure"}], "input_values": {"button_id2.n_clicks": 1}, "state_values": {}, "triggered_inputs": [{"prop_id": "button_id2.n_clicks", "value": 1}], "ignore_register_page": true}], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (834b)
+
+Thw full contents of the message headers:
+{'lang': 'py', 'task': 'long_callback_e84da478f3afb2a0c47681469dfe6a5f2939959d', 'id': '79703565-adb9-4371-b4f0-4486190b25cd', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [None, None], 'root_id': '79703565-adb9-4371-b4f0-4486190b25cd', 'parent_id': None, 'argsrepr': "('405dcaa45b8e30014e5052a05ff4e911ffe3be06', '405dcaa45b8e30014e5052a05ff4e911ffe3be06-progress', [1], {'args_grouping': [{...}], 'using_args_grouping': False, 'outputs_grouping': [{...}, {...}], 'using_outputs_grouping': False, 'inputs_list': [{...}], 'states_list': [], 'outputs_list': [{...}, {...}], 'input_values': {'button_id2.n_clicks': 1}, 'state_values': {}, 'triggered_inputs': [{...}], 'ignore_register_page': True})", 'kwargsrepr': '{}', 'origin': 'gen10750@100834-pc', 'ignore_result': False}
+
+The delivery info for this task is:
+{'exchange': '', 'routing_key': 'celery'}
+Traceback (most recent call last):
+  File "/home/jpt/git/charger_simulator/venv311/lib/python3.11/site-packages/celery/worker/consumer/consumer.py", line 591, in on_task_received
+    strategy = strategies[type_]
+               ~~~~~~~~~~^^^^^^^
+KeyError: 'long_callback_e84da478f3afb2a0c47681469dfe6a5f2939959d'
